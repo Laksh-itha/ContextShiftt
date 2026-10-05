@@ -22,7 +22,7 @@ export async function OPTIONS() {
 }
 
 export async function POST(request: Request) {
-  const key = process.env.GEMINI_API_KEY;
+  const key = process.env.GEMINI_API_KEY?.trim().replace(/^["']|["']$/g, "");
   if (!key) return json({ error: { message: "Server is missing GEMINI_API_KEY." } }, 500);
 
   const model = new URL(request.url).searchParams.get("model") || "";
